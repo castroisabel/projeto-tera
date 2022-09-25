@@ -14,4 +14,5 @@ __pycache__/
 .python-version
 
 # Data
-data/*
+data/fraudTest.csv
+data/fraudTrain.csv
