@@ -20,19 +20,9 @@ def preprocessing(df):
     return df
 
 
-def get_job_probability(df):
-  prob = df.groupby(['job'])['is_fraud'].mean()
-  prob_df = pd.DataFrame(prob)
-
-  prob_encod_dictionary = prob_df['is_fraud'].to_dict()
-  df['job_probability'] = df['job'].map(prob_encod_dictionary)
-
-  return df
-
-
 def feature_selection(df):
     features = ['category', 'amt', 'city_pop', 'merch_lat', 'merch_long',
-    'age', 'hour', 'day', 'month', 'job_probability','is_fraud']
+    'age', 'hour', 'day', 'month', 'is_fraud']
 
     df = pd.get_dummies(df[features], drop_first=True)
 
