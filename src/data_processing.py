@@ -26,8 +26,8 @@ def feature_selection(df):
 
     df = pd.get_dummies(df[features], drop_first=True)
 
-    y = df['is_fraud'].values
-    X = df.drop('is_fraud', axis='columns').values
+    y = df['is_fraud']
+    X = df.drop('is_fraud', axis='columns')
 
     return X, y
 

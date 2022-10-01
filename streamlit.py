@@ -52,7 +52,7 @@ def main():
     model = pickle.load(open('model/model.pkl', 'rb'))
 
     data, X_test, y_test = load_data()
-    predicted_proba = model.predict_proba(X_test)
+    predicted_proba = model.predict_proba(X_test.values)
     predicted = (predicted_proba [:,1] >= threshold).astype('int')
 
 
@@ -64,7 +64,7 @@ def main():
     col1, col2 = st.columns([3,1])
     with col1:
         #Confusion Matrix
-        cm = confusion_matrix(y_true=y_test, y_pred=predicted)
+        cm = confusion_matrix(y_true=y_test.values, y_pred=predicted)
         classes = ['Não Fraude', 'Fraude']
         fig1 = px.imshow(
             pd.DataFrame(cm, index=classes, columns=classes),
@@ -79,7 +79,7 @@ def main():
     with col2:
         #Summary
         st.subheader("Avaliação")
-        summary = pd.DataFrame(precision_recall_fscore_support(y_true=y_test, y_pred=predicted, average='binary')).head(3)
+        summary = pd.DataFrame(precision_recall_fscore_support(y_true=y_test.values, y_pred=predicted, average='binary')).head(3)
         summary.index = ['Precision', 'Recall', 'F1-score']
         summary.columns = ['Métricas']
         st.write(summary.style.format('{:.2%}'))
@@ -127,7 +127,36 @@ def main():
 
     st.markdown("<hr />", unsafe_allow_html=True)
 
-    st.header("Previsão: ")
+
+    with st.form("predict_data"):
+        st.header("Previsão de transação: ")
+        category = st.selectbox("Categoria:",  ['misc_net', 'grocery_pos', 'entertainment', 'gas_transport',
+                                                'misc_pos', 'grocery_net', 'shopping_net', 'shopping_pos',
+                                                'food_dining', 'personal_care', 'health_fitness', 'travel',
+                                                'kids_pets', 'home'])
+        amt = st.number_input("Valor:", min_value=1, max_value=500000, step=1, value=250000)
+        age = st.slider("Idade", 0, 100, value=50)
+        city_pop = st.number_input("População da cidade:", min_value=1000, max_value=10000000, step=1000, value=2000000)
+        date = st.date_input("Data:", dt.date.today())
+        hour = st.time_input('Horário:', dt.datetime.now())
+        merch_lat = st.number_input("Latitude: ", min_value=0, max_value=90, step=5, value=80)
+        merch_long = st.number_input("Longitute: ", min_value=0, max_value=180, step=5, value =90)
+        st.form_submit_button("Prever!")
+
+        hour = hour.hour
+        month = date.month
+        day = date.weekday()
+
+
+    new_data = pd.DataFrame({'category': category, 'amt': float(amt), 'city_pop': int(city_pop), 'merch_lat': merch_lat,
+    'merch_long': -merch_long, 'age': age, 'hour': hour, 'day': day, 'month': month, 'is_fraud': 0}, index=[0])
+
+    X_new, _ = feature_selection(new_data)
+    X_new = X_new.reindex(columns = X_test.columns, fill_value=0)
+    predicted_proba = model.predict_proba(X_new.values)
+    
+    st.subheader("Probabilidade de fraude: ")
+    st.subheader(predicted_proba[:,1][0])
 
     return None
     

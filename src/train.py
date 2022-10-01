@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # Treino
     train_data = preprocessing(train_data)
     X_train, y_train = feature_selection(train_data)
-    X_resampled, y_resampled = data_balancing(X_train, y_train)
+    X_resampled, y_resampled = data_balancing(X_train.values, y_train.values)
     # Teste
     test_data = preprocessing(test_data)  
     X_test, y_test = feature_selection(test_data) 
@@ -23,6 +23,6 @@ if __name__ == "__main__":
 
     # Avaliação
     threshold = find_threshold(model, X_resampled, y_resampled)
-    evaluate(model, threshold, X_test, y_test)
+    evaluate(model, threshold, X_test.values, y_test.values)
 
 
