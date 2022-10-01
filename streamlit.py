@@ -12,7 +12,7 @@ px.defaults.template = "plotly_white"
 
 @st.cache
 def load_data():
-    data = pd.read_csv('data/reducedTrain.csv')
+    data = pd.read_csv('data/reducedTest.csv')
     data = preprocessing(data)  
     data['trans_date_trans_time'] = pd.to_datetime(data['trans_date_trans_time']).dt.normalize()
     data.sort_values(by=['trans_date_trans_time'], ascending=True, inplace=True)
