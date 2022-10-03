@@ -33,6 +33,6 @@ O artigo oficial do projeto também está disponível no [medium](https://medium
 
 [Lucas Dolenkei](https://www.linkedin.com/in/lucas-dolenkei-389582228/)
 
-[Catarina](https://www.linkedin.com/in/catarina-reis-793327212/)
+[Catarina Reis](https://www.linkedin.com/in/catarina-reis-793327212/)
 
 [Jone Carlos](https://www.linkedin.com/in/jone-carlos/)
