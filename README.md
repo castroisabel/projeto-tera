@@ -31,7 +31,7 @@ O artigo oficial do projeto também está disponível no [medium](https://medium
 
 [Isabel Castro](https://www.linkedin.com/in/castro-isabel/)
 
-[Lucas Dolenkei](https://www.linkedin.com/in/lucas-dolenkei-389582228/)
+[Lucas Dolenkei](https://www.linkedin.com/in/lucas-dolenkei/)
 
 [Catarina Reis](https://www.linkedin.com/in/catarina-reis-793327212/)
 
