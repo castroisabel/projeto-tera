@@ -10,7 +10,7 @@ def preprocessing(df):
     df['dob'] = pd.to_datetime(df['dob'])
     df[['cc_num']] = df[['cc_num']].astype('object')
     df['name'] = df['first'] + ' ' + df['last']
-    df['age'] = np.round((df['trans_date_trans_time'] - df['dob'])/np.timedelta64(1, 'Y'))
+    df['age'] = np.round((df['trans_date_trans_time'] - df['dob']).dt.days / 365.25)
     df['hour'] = pd.to_datetime(df['trans_date_trans_time']).dt.hour
     df['day'] = pd.to_datetime(df['trans_date_trans_time']).dt.dayofweek
     df['month'] = pd.to_datetime(df['trans_date_trans_time']).dt.month
